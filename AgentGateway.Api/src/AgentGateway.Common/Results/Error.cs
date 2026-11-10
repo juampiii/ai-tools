@@ -2,10 +2,10 @@ namespace AgentGateway.Common.Results;
 
 public sealed record Error(ErrorType Type, string Message)
 {
-    private static readonly IReadOnlyDictionary<string, string[]> _noValidationErrors = new Dictionary<string, string[]>();
+    private static readonly IReadOnlyDictionary<string, string[]> NoValidationErrors = new Dictionary<string, string[]>();
 
     /// <summary>Property path to messages. Only filled when <see cref="Type"/> is <see cref="ErrorType.Validation"/>.</summary>
-    public IReadOnlyDictionary<string, string[]> ValidationErrors { get; private init; } = _noValidationErrors;
+    public IReadOnlyDictionary<string, string[]> ValidationErrors { get; private init; } = NoValidationErrors;
 
     public static Error Failure(string message) => new(ErrorType.Failure, message);
 
