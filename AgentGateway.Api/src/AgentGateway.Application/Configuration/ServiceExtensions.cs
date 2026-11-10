@@ -1,6 +1,6 @@
-using System.Reflection;
 using AgentGateway.Application.Common.Messaging;
 using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
 namespace AgentGateway.Application.Configuration;
 

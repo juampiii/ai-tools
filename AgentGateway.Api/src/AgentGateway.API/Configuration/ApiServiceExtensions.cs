@@ -1,7 +1,7 @@
-using System.Text.Json.Serialization;
 using AgentGateway.API.Authentication;
 using AgentGateway.API.Endpoints;
 using Scalar.AspNetCore;
+using System.Text.Json.Serialization;
 
 namespace AgentGateway.API.Configuration;
 
