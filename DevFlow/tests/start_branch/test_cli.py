@@ -3,7 +3,7 @@ from typing import Any
 import pytest
 
 from devflow.shared.ado_client import HttpAdoClient
-from devflow.shared.config import AdoSettings, Settings
+from devflow.shared.config import AdoSettings, LlmSettings, Settings
 from devflow.shared.errors import ClientError, ConfigError
 from devflow.shared.github_client import HttpGitHubClient
 from devflow.start_branch import cli
@@ -16,11 +16,13 @@ from devflow.start_branch.cli import (
 )
 from tests.fakes import FakeGitClient
 
+LLM_SETTINGS = LlmSettings(api_url="http://llm.test", api_key="llm-key")
+
 
 def ado_settings() -> Settings:
     return Settings(
         tracker="ado",
-        llm_api_url="http://llm.test",
+        llm=LLM_SETTINGS,
         base_branch="develop",
         ado=AdoSettings(organization="org", project="proj", pat="secret"),
     )
@@ -29,7 +31,7 @@ def ado_settings() -> Settings:
 def github_settings() -> Settings:
     return Settings(
         tracker="github",
-        llm_api_url="http://llm.test",
+        llm=LLM_SETTINGS,
         base_branch="develop",
         github_token="gh-secret",
     )
@@ -80,7 +82,7 @@ def test_create_tracker_fails_when_the_origin_remote_is_not_github():
 
 
 def test_create_tracker_fails_when_ado_settings_are_missing():
-    settings = Settings(tracker="ado", llm_api_url="x", base_branch="develop")
+    settings = Settings(tracker="ado", llm=LLM_SETTINGS, base_branch="develop")
 
     with pytest.raises(ConfigError):
         create_tracker(settings, FakeGitClient())

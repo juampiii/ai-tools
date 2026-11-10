@@ -118,7 +118,7 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     graph = build_graph(
         tracker=tracker,
-        llm=HttpLlmClient(settings.llm_api_url),
+        llm=HttpLlmClient(settings.llm.api_url, settings.llm.api_key),
         git=git,
         checkpointer=InMemorySaver(),
         base_branch=settings.base_branch,

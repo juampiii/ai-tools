@@ -51,7 +51,7 @@ DevFlow graphs are **workflows**: the code defines the steps and their order. Ag
 ## LLM usage
 
 - The LLM is used only where language has to be interpreted or generated. In `start-branch`, only to generate the slug of the branch name.
-- It is consumed through `LlmClient`, which calls our own API `POST {LLM_API_URL}` with the body `{"prompt": str, "complexity": "Low"|"Medium"|"High"|"VeryHigh"|"Max"|null, "jsonSchema": object|null}` and receives `{"response", "model", "inputTokens", "outputTokens", "cost"}`. Error codes: 400 (invalid request) and 502 (CLI failure).
+- It is consumed through `LlmClient`, which calls our own API `POST {LLM_API_URL}` with the `X-Api-Key: {LLM_API_KEY}` header and the body `{"prompt": str, "complexity": "Low"|"Medium"|"High"|"VeryHigh"|"Max"|null, "jsonSchema": object|null}` and receives `{"response", "model", "inputTokens", "outputTokens", "cost"}`. Error codes: 400 (invalid request), 401 (missing or wrong API key) and 502 (CLI failure).
 - Always use `jsonSchema` to get structured answers; never parse free text.
 - Use the lowest `complexity` that is enough for the task (`Low` for a slug).
 - Store the usage (tokens and cost) in the state to show it at the end of the run.
@@ -101,7 +101,7 @@ Flow: `read_card` → `resolve_prefix` → (unsupported type → `END` with erro
 Flow: `read_branch` → `read_changes` → `propose_message` → `human_review` → (rejection → `propose_message`) → `copy_message` → `END`. Any node that fails ends the graph with `error`.
 
 - Input: `--length MIN-MAX` (default 50-70), the target length of the description. It is a guideline for the LLM; the code does not verify it. It runs on the git repository of the current directory.
-- It needs no tracker: the CLI reads only `LLM_API_URL` with `load_llm_api_url`.
+- It needs no tracker: the CLI reads only `LLM_API_URL` and `LLM_API_KEY` with `load_llm_settings`.
 - Story code: computed with code from the branch name (`feature/52691-name` → `52691`) and appended outside the LLM. Without a code, no suffix.
 - Changes: `git status` (staged, unstaged, untracked) filtered with code. Noise is dropped (hidden paths, `bin/`, `obj/`, `git-changes-summary*`, temporary files); lock files are kept only when they are the only meaningful change. The diff (`git diff HEAD`) is requested only for the kept paths and truncated to `MAX_DIFF_LENGTH`.
 - LLM: returns `{"type", "description"}` with `jsonSchema` and `Medium` complexity. The type must be one of `COMMIT_TYPES`. The description is normalized (one line, capital letter, final period). The final message is `<type>: <Description>. story: #<code>`.

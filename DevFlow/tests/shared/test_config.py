@@ -1,16 +1,17 @@
 import pytest
 
-from devflow.shared.config import load_llm_api_url, load_settings
+from devflow.shared.config import LlmSettings, load_llm_settings, load_settings
 from devflow.shared.errors import ConfigError
 
-ADO_ENV = {"ADO_ORGANIZATION": "org", "ADO_PROJECT": "proj", "ADO_PAT": "secret"}
-GITHUB_ENV = {"GITHUB_TOKEN": "gh-secret"}
+LLM_ENV = {"LLM_API_KEY": "llm-key"}
+ADO_ENV = {**LLM_ENV, "ADO_ORGANIZATION": "org", "ADO_PROJECT": "proj", "ADO_PAT": "secret"}
+GITHUB_ENV = {**LLM_ENV, "GITHUB_TOKEN": "gh-secret"}
 
 
 def test_load_settings_applies_defaults_for_optional_variables():
     settings = load_settings(ADO_ENV)
 
-    assert settings.llm_api_url == "http://localhost:5052/api/prompts"
+    assert settings.llm.api_url == "http://localhost:5052/api/prompts"
     assert settings.base_branch == "develop"
 
 
@@ -30,13 +31,13 @@ def test_load_settings_reads_all_ado_values():
     assert settings.ado.project == "proj"
     assert settings.ado.pat == "secret"
     assert settings.github_token is None
-    assert settings.llm_api_url == "http://llm.test/api"
+    assert settings.llm == LlmSettings(api_url="http://llm.test/api", api_key="llm-key")
     assert settings.base_branch == "main"
 
 
 def test_load_settings_lists_every_missing_ado_variable():
     with pytest.raises(ConfigError) as exc_info:
-        load_settings({"ADO_ORGANIZATION": "org"})
+        load_settings({**LLM_ENV, "ADO_ORGANIZATION": "org"})
 
     message = str(exc_info.value)
     assert "ADO_PROJECT" in message
@@ -93,9 +94,27 @@ def test_load_settings_rejects_an_unknown_default_tracker():
         load_settings({**ADO_ENV, "DEFAULT_TRACKER": "jira"})
 
 
-def test_load_llm_api_url_defaults_without_requiring_any_tracker_variable():
-    assert load_llm_api_url({}) == "http://localhost:5052/api/prompts"
+def test_load_settings_requires_the_llm_api_key():
+    environ = {key: value for key, value in ADO_ENV.items() if key != "LLM_API_KEY"}
+
+    with pytest.raises(ConfigError, match="LLM_API_KEY"):
+        load_settings(environ)
 
 
-def test_load_llm_api_url_reads_the_environment_variable():
-    assert load_llm_api_url({"LLM_API_URL": " http://llm.test/api "}) == "http://llm.test/api"
+def test_load_llm_settings_defaults_the_url_without_requiring_any_tracker_variable():
+    assert load_llm_settings(LLM_ENV) == LlmSettings(
+        api_url="http://localhost:5052/api/prompts", api_key="llm-key"
+    )
+
+
+def test_load_llm_settings_reads_the_environment_variables():
+    environ = {"LLM_API_URL": " http://llm.test/api ", "LLM_API_KEY": " llm-key "}
+
+    assert load_llm_settings(environ) == LlmSettings(
+        api_url="http://llm.test/api", api_key="llm-key"
+    )
+
+
+def test_load_llm_settings_treats_a_blank_api_key_as_missing():
+    with pytest.raises(ConfigError, match="LLM_API_KEY"):
+        load_llm_settings({"LLM_API_KEY": "   "})

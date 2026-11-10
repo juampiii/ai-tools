@@ -13,7 +13,8 @@ from langgraph.types import Command
 from devflow.commit_message.graph import build_graph
 from devflow.commit_message.nodes import DEFAULT_MAX_LENGTH, DEFAULT_MIN_LENGTH
 from devflow.shared.clipboard_client import WindowsClipboardClient
-from devflow.shared.config import load_llm_api_url
+from devflow.shared.config import load_llm_settings
+from devflow.shared.errors import ConfigError
 from devflow.shared.git_client import SubprocessGitClient
 from devflow.shared.llm_client import HttpLlmClient
 
@@ -112,8 +113,14 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = parse_args(argv)
     min_length, max_length = args.length
 
+    try:
+        llm_settings = load_llm_settings()
+    except ConfigError as exc:
+        print(f"Configuration error: {exc}", file=sys.stderr)
+        return 2
+
     graph = build_graph(
-        llm=HttpLlmClient(load_llm_api_url()),
+        llm=HttpLlmClient(llm_settings.api_url, llm_settings.api_key),
         git=SubprocessGitClient(cwd=Path.cwd()),
         clipboard=WindowsClipboardClient(),
         checkpointer=InMemorySaver(),

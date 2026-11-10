@@ -24,21 +24,40 @@ class AdoSettings:
 
 
 @dataclass(frozen=True)
+class LlmSettings:
+    api_url: str
+    api_key: str
+
+
+@dataclass(frozen=True)
 class Settings:
     tracker: str
-    llm_api_url: str
+    llm: LlmSettings
     base_branch: str
     ado: AdoSettings | None = None
     github_token: str | None = None
 
 
-def load_llm_api_url(environ: Mapping[str, str] | None = None) -> str:
-    """Reads LLM_API_URL (and `.env` if `environ` is not given), for graphs that need no tracker."""
+def load_llm_settings(environ: Mapping[str, str] | None = None) -> LlmSettings:
+    """Reads LLM_API_URL and LLM_API_KEY (and `.env` if `environ` is not given).
+
+    Graphs that need no tracker use it directly.
+    """
     if environ is None:
         load_dotenv()
         environ = os.environ
 
-    return environ.get("LLM_API_URL", "").strip() or DEFAULT_LLM_API_URL
+    api_key = environ.get("LLM_API_KEY", "").strip()
+    if not api_key:
+        raise ConfigError(
+            "Missing required environment variable: LLM_API_KEY. "
+            "Define it in the .env file (see .env.example)."
+        )
+
+    return LlmSettings(
+        api_url=environ.get("LLM_API_URL", "").strip() or DEFAULT_LLM_API_URL,
+        api_key=api_key,
+    )
 
 
 def load_settings(environ: Mapping[str, str] | None = None, tracker: str | None = None) -> Settings:
@@ -64,6 +83,8 @@ def load_settings(environ: Mapping[str, str] | None = None, tracker: str | None 
             f"{', '.join(missing)}. Define them in the .env file (see .env.example)."
         )
 
+    llm = load_llm_settings(environ)
+
     ado = None
     github_token = None
     if selected == "ado":
@@ -77,7 +98,7 @@ def load_settings(environ: Mapping[str, str] | None = None, tracker: str | None 
 
     return Settings(
         tracker=selected,
-        llm_api_url=load_llm_api_url(environ),
+        llm=llm,
         base_branch=environ.get("BASE_BRANCH", "").strip() or DEFAULT_BASE_BRANCH,
         ado=ado,
         github_token=github_token,

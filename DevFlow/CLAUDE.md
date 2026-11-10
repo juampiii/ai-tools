@@ -44,5 +44,5 @@ Before considering a task done, run tests, lint and format, and make sure they p
 ## Environment
 
 - Development on Windows. Use `pathlib` paths, never strings joined with `/` or `\`.
-- The LLM is consumed through our own HTTP API (`POST /api/prompts`) that wraps the Claude Code CLI. Its URL comes from the `LLM_API_URL` variable.
+- The LLM is consumed through our own HTTP API (`POST /api/prompts`) that wraps the Claude Code CLI. Its URL comes from the `LLM_API_URL` variable and its API key from `LLM_API_KEY` (sent in the `X-Api-Key` header).
 - All configuration comes from environment variables (a local `.env` file, never versioned). `.env.example` documents all the variables without secret values.

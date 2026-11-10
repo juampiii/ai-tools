@@ -37,6 +37,7 @@ Copy `.env.example` to `.env` and fill it in. The `.env` file is not versioned.
 | `ADO_PAT` | with `ado` | |
 | `GITHUB_TOKEN` | with `github` | |
 | `LLM_API_URL` | no | `http://localhost:5052/api/prompts` |
+| `LLM_API_KEY` | yes | |
 | `BASE_BRANCH` | no | `develop` |
 
 Only the variables of the tracker in use are required.
@@ -81,7 +82,7 @@ uv run commit-message
 uv run commit-message --length 80-100
 ```
 
-It only needs `LLM_API_URL` (optional). The tracker variables are not required.
+It only needs `LLM_API_KEY` and `LLM_API_URL` (optional). The tracker variables are not required.
 
 ## Install as a global command
 
