@@ -1,0 +1,53 @@
+## ---------- Local / personal ----------
+/.claude/
+**/.claude/settings.local.json
+.env
+.env.*
+!.env.example
+
+## ---------- OS / editors ----------
+Thumbs.db
+Desktop.ini
+.DS_Store
+.vs/
+.vscode/
+.idea/
+*.swp
+
+## ---------- .NET ----------
+[Bb]in/
+[Oo]bj/
+[Pp]ublish/
+[Ll]og/
+[Ll]ogs/
+TestResults/
+*.user
+*.suo
+*.userprefs
+*.rsuser
+*.nupkg
+*.snupkg
+.nuget/
+project.lock.json
+*.binlog
+coverage*.json
+coverage*.xml
+*.coverage
+*.coveragexml
+
+## ---------- Python ----------
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+wheels/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+.ipynb_checkpoints/

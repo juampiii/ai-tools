@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>AgentGateway.API</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <OutputType>WinExe</OutputType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.14" />
+    <PackageReference Include="Scalar.AspNetCore" Version="2.18.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AgentGateway.Application\AgentGateway.Application.csproj" />
+    <ProjectReference Include="..\AgentGateway.Domain\AgentGateway.Domain.csproj" />
+    <ProjectReference Include="..\AgentGateway.Infrastructure\AgentGateway.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,13 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/AgentGateway.API/AgentGateway.API.csproj" />
+    <Project Path="src/AgentGateway.Application/AgentGateway.Application.csproj" />
+    <Project Path="src/AgentGateway.Common/AgentGateway.Common.csproj" />
+    <Project Path="src/AgentGateway.Domain/AgentGateway.Domain.csproj" />
+    <Project Path="src/AgentGateway.Infrastructure/AgentGateway.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path="global.json" />
+  </Folder>
+</Solution>
