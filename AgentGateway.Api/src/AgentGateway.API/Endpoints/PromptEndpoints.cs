@@ -12,17 +12,21 @@ public static class PromptEndpoints
     {
         public IEndpointRouteBuilder MapPromptEndpoints()
         {
-            var group = app.MapGroup("api/prompts").WithTags("Prompts");
+            var group = app.MapGroup("api/prompts")
+                .WithTags("Prompts")
+                .RequireAuthorization();
 
             group.MapPost("", ExecutePromptAsync)
                 .WithName("ExecutePrompt")
                 .WithSummary("Runs a prompt with the Claude Code CLI and returns the answer with its usage.")
                 .Produces<PromptCompletionDto>(StatusCodes.Status200OK)
                 .ProducesValidationProblem()
+                .ProducesProblem(StatusCodes.Status401Unauthorized)
                 .ProducesProblem(StatusCodes.Status502BadGateway);
 
             // TODO: remove the old route when no client calls it anymore.
             app.MapPost("api/llm", ExecutePromptAsync)
+                .RequireAuthorization()
                 .ExcludeFromDescription();
 
             return app;
