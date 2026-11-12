@@ -140,7 +140,7 @@ def human_review(state: StartBranchState) -> dict[str, Any]:
         return {
             "review_action": "reject",
             "feedback": decision.get("feedback") or None,
-            "rejected_slugs": [*state.get("rejected_slugs", []), state["branch_slug"]],
+            "rejected_slugs": [state["branch_slug"]],
         }
     return {"error": f"Unknown review action: {action!r}."}
 

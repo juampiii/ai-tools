@@ -1,4 +1,6 @@
+from typing import Annotated
 from typing import TypedDict
+import operator
 
 
 class StartBranchState(TypedDict, total=False):
@@ -8,7 +10,7 @@ class StartBranchState(TypedDict, total=False):
     branch_prefix: str
     branch_name: str
     branch_slug: str
-    rejected_slugs: list[str]
+    rejected_slugs: Annotated[list[str], operator.add]
     feedback: str | None
     review_action: str
     created_branch: str
