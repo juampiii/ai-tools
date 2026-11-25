@@ -51,3 +51,8 @@ venv/
 .coverage
 htmlcov/
 .ipynb_checkpoints/
+
+## ---------- Local MCP servers ----------
+**/node_modules/
+/MCPs/**/.runtime/
+/MCPs/**/.secrets/
