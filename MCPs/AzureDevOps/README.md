@@ -1,5 +1,7 @@
 # Azure DevOps MCP
 
+[Back to MCP integrations](../README.md) · [AI tools](../../README.md)
+
 Local Windows installation of the [official Microsoft Azure DevOps MCP server](https://github.com/microsoft/azure-devops-mcp), using the existing organization **juampidev**. It runs over stdio; no Azure compute resource, public endpoint, or paid service is provisioned.
 
 ## Install on this computer
