@@ -1,6 +1,5 @@
-from typing import Annotated
-from typing import TypedDict
 import operator
+from typing import Annotated, TypedDict
 
 
 class StartBranchState(TypedDict, total=False):

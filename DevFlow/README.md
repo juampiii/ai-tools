@@ -6,7 +6,7 @@ Personal development-workflow automation tools, built as [LangGraph](https://lan
 
 Creates a ready-to-use git branch from a card id, in the repository of the current directory. The card is read from Azure DevOps (default) or from GitHub.
 
-1. Reads the card title and type. Azure DevOps: `Bug` and `Service Request` → `bugfix/`, `User Story` and `Product Backlog Item` → `feature/`. GitHub issues: label `bug` → `bugfix/`, any other issue → `feature/`. Any other type ends with an error.
+1. Reads the card title and type. Azure DevOps: `Bug`, `Freshdesk Bug` and `Service Request` → `bugfix/`, `User Story` and `Product Backlog Item` → `feature/`. GitHub issues: label `bug` → `bugfix/`, any other issue → `feature/`. Any other type ends with an error.
 2. Runs `git fetch origin <BASE_BRANCH>`.
 3. Asks the LLM for a short English slug and proposes `{prefix}{id}-{slug}`.
 4. Asks you to confirm: approve, edit the name, or reject with feedback (it generates a new proposal).

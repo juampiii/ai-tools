@@ -14,6 +14,7 @@ from devflow.start_branch.state import StartBranchState
 BRANCH_PREFIXES = {
     "Bug": "bugfix/",
     "Service Request": "bugfix/",
+    "Freshdesk Bug": "bugfix/",
     "User Story": "feature/",
     "Product Backlog Item": "feature/",
     "Issue": "feature/",

@@ -1,0 +1,9 @@
+{
+  "name": "ai-tools-azure-devops-mcp",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Local installation of Microsoft's Azure DevOps MCP server",
+  "dependencies": {
+    "@azure-devops/mcp": "2.11.0"
+  }
+}

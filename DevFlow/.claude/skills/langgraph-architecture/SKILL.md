@@ -91,7 +91,7 @@ Flow: `read_card` → `resolve_prefix` → (unsupported type → `END` with erro
 - Tracker: `-t` / `--tracker` with `ado` or `github`. Without it, `DEFAULT_TRACKER` is used, or `ado`. Only the variables of the selected tracker are required.
 - GitHub: the card is an issue (pull requests are rejected). Owner and repository are deduced from the `origin` remote in the CLI composition (`create_tracker`), never inside the nodes. A remote that is not `github.com` ends with an error.
 - Card types: the tracker client returns the card type; GitHub issues are `Bug` when they have the `bug` label and `Issue` otherwise.
-- Prefixes: `{"Bug": "bugfix/", "Service Request": "bugfix/", "User Story": "feature/", "Product Backlog Item": "feature/", "Issue": "feature/"}`. Any other type ends with an error.
+- Prefixes: `{"Bug": "bugfix/", "Service Request": "bugfix/", "Freshdesk Bug": "bugfix/", "User Story": "feature/", "Product Backlog Item": "feature/", "Issue": "feature/"}`. Any other type ends with an error.
 - Branch name: `{prefix}{card_id}-{slug}`. The LLM generates the slug: short, in English, kebab-case.
 - The branch is created from `origin/{BASE_BRANCH}`.
 - Out of scope: several repositories, checking whether the branch already exists, checking the working tree, changing the card in the tracker, reading the GitHub Project board (draft items), GitHub Enterprise, a card hosted in a different place than the code repository.
