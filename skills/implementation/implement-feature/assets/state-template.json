@@ -1,0 +1,56 @@
+{
+  "story": { "id": "", "title": "" },
+  "story_doc": "",
+  "mode": "parallel",
+  "contract": "",
+  "permissions": {
+    "commit": true,
+    "push_and_open_pr": true
+  },
+  "repos": [
+    {
+      "id": "",
+      "role": "backend",
+      "path": "",
+      "scope": [],
+      "base_branch": "",
+      "host": "github",
+      "commands": {
+        "build": "",
+        "unit_tests": "",
+        "style": "",
+        "integration_tests": "",
+        "e2e_tests": ""
+      },
+      "integration_local": "ask",
+      "plan_steps": [],
+      "branch": "",
+      "worktree": "",
+      "substeps": [
+        {
+          "id": "",
+          "title": "",
+          "outcome": "",
+          "acceptance_criteria": [],
+          "status": "pending",
+          "fix_rounds": 0,
+          "commit": null,
+          "review": { "verdict": null, "report": null }
+        }
+      ],
+      "full_review": { "verdict": null, "report": null },
+      "pr": null
+    }
+  ],
+  "queue": [
+    {
+      "question": "",
+      "options": [],
+      "recommendation": "",
+      "blocks": [],
+      "answer": null
+    }
+  ],
+  "phase": "intake",
+  "updated": ""
+}
