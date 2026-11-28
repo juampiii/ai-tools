@@ -2,7 +2,7 @@
 
 [Back to AI tools](../README.md)
 
-Local Model Context Protocol (MCP) integrations for Codex and other compatible AI clients. Each integration has its own directory, installation instructions, dependencies, and credential storage.
+Local Model Context Protocol (MCP) integrations for Claude Code, Codex, and other compatible AI clients. Each integration has its own directory, installation instructions, dependencies, and credential storage.
 
 | Integration | Capabilities | Requirements | Documentation |
 | --- | --- | --- | --- |

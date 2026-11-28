@@ -14,6 +14,6 @@ Personal tools for AI-assisted development: a local HTTP gateway to Claude Code,
 ## Where to start
 
 - To use `start-branch` or `commit-message`, set up [AgentGateway](AgentGateway.Api/README.md) first, then [DevFlow](DevFlow/README.md). DevFlow calls the gateway at `http://localhost:5052/api/prompts` by default.
-- To use Azure DevOps from Codex or another MCP client, follow the [Azure DevOps MCP guide](MCPs/AzureDevOps/README.md). This integration runs independently of AgentGateway and DevFlow.
+- To use Azure DevOps from Claude Code, Codex, or another MCP client, follow the [Azure DevOps MCP guide](MCPs/AzureDevOps/README.md). This integration runs independently of AgentGateway and DevFlow.
 
 Each subproject owns its dependencies and setup. There is no repository-wide installation command. Keep credentials in the local storage described by each guide; never commit API keys, PATs, or local secret files.

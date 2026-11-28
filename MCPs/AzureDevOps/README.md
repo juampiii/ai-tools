@@ -19,6 +19,22 @@ Enter the PAT only into the hidden local prompt. It is encrypted with Windows DP
 
 Never commit the token, its base64 encoding, or the encrypted file. `.runtime`, `.secrets`, and `node_modules` are ignored by Git. Base64 is encoding, not encryption.
 
+## Register with Claude Code
+
+The launcher requires PowerShell 7. If `pwsh.exe` is not installed, install it with `winget install --id Microsoft.PowerShell -e`. The winget package installs as an MSIX app under a versioned `WindowsApps` folder, so register its version-independent app execution alias instead of that folder.
+
+After installing and storing the PAT, run:
+
+```powershell
+$powerShell = "$env:LOCALAPPDATA\Microsoft\WindowsApps\pwsh.exe"
+claude mcp add azure-devops --scope user -- $powerShell -NoLogo -NoProfile -NonInteractive -File C:/Repos/ai-tools/MCPs/AzureDevOps/Start.ps1
+claude mcp get azure-devops
+```
+
+`--scope user` writes the entry to `~/.claude.json`, making the server available in all your projects; the command contains no secret. `claude mcp get` should report `Connected`, which confirms that the server starts and answers the MCP handshake, not that the PAT is valid. Start a new Claude Code session to load the tools, then ask it to list projects in `juampidev`.
+
+Claude Code and Codex can be registered at the same time. Both use the same installation and the same encrypted PAT, so `Set-Pat.ps1` updates the token for both. To remove the Claude Code registration, run `claude mcp remove azure-devops -s user`.
+
 ## Register with Codex
 
 After installing and storing the PAT, run:
