@@ -4,7 +4,7 @@ Personal development-workflow automation tools, built as LangGraph graphs in Pyt
 
 ## Purpose
 
-Each tool is a LangGraph graph that is invoked from the terminal. The first one is `start-branch`: it reads an Azure DevOps card, resolves the branch prefix from the card type, proposes a branch name, asks the user for confirmation and creates the branch from `origin/develop`. The second one is `commit-message`: it reads the pending git changes, proposes a conventional-commit message, asks the user for confirmation and copies it to the clipboard.
+Each tool is a LangGraph graph that is invoked from the terminal. The first one is `start-branch`: it reads a card from Azure DevOps (default) or a GitHub issue, resolves the branch prefix from the card type or labels, proposes a branch name, asks the user for confirmation and creates the branch from `origin/<BASE_BRANCH>` (`develop` by default). The second one is `commit-message`: it reads the pending git changes, proposes a conventional-commit message, asks the user for confirmation and copies it to the clipboard.
 
 The project also has a learning goal: the author comes from .NET/C# and is learning Python and LangGraph. When you explain decisions, use .NET analogies if they help.
 
@@ -25,7 +25,7 @@ DevFlow/
 ├── pyproject.toml
 ├── .env.example
 ├── src/devflow/
-│   ├── shared/            # config and clients (ADO, LLM, git, clipboard) shared between graphs
+│   ├── shared/            # config, errors, tracker protocol and clients (ADO, GitHub, LLM, git, clipboard)
 │   ├── start_branch/      # state, nodes, graph, CLI entry point
 │   └── commit_message/    # state, nodes, graph, CLI entry point
 └── tests/
